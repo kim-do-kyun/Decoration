@@ -5,13 +5,13 @@ import java.util.HashMap;
 import java.util.Map;
 import org.bson.Document;
 import org.desp.decoration.dto.LevelDataDto;
-import org.desp.decoration.dto.UserDataDto;
+import org.desp.decoration.dto.StatsDto;
 
 public class LevelDataRepository {
 
     private static LevelDataRepository instance;
     private final MongoCollection<Document> levelDataDB;
-    private static final Map<String, LevelDataDto> levelDataMap = new HashMap<>();
+    private static final Map<Integer, LevelDataDto> levelDataMap = new HashMap<>();
 
     public LevelDataRepository() {
         DatabaseRegister database = new DatabaseRegister();
@@ -28,19 +28,27 @@ public class LevelDataRepository {
 
     public void loadLevelData() {
         for (Document document : levelDataDB.find()) {
-            UserDataDto userData = UserDataDto.builder()
-                    .user_id(document.getString("user_id"))
-                    .uuid(document.getString("uuid"))
-                    .equippedDeco(document.getString("equippedDeco"))
-                    .unlockedDeco(document.getList("unlockedDeco", String.class))
-                    .level(document.getInteger("level"))
+            Document statsDoc = document.get("stats", Document.class);
+
+            StatsDto statsDto = StatsDto.builder()
+                    .mana(statsDoc.getDouble("mana"))
+                    .skillDMG(statsDoc.getDouble("skillDMG"))
+                    .hp(statsDoc.getDouble("hp"))
+                    .speed(statsDoc.getDouble("speed"))
+                    .criticalPercentage(statsDoc.getDouble("criticalPercentage"))
+                    .criticalDamage(statsDoc.getDouble("criticalDamage"))
                     .build();
 
-//            levelDataMap.put(userData.getUuid());
+            LevelDataDto levelData = LevelDataDto.builder()
+                    .level(document.getInteger("level"))
+                    .stats(statsDto)
+                    .build();
+
+            levelDataMap.put(levelData.getLevel(), levelData);
         }
     }
 
-//    public Map<String, UserDataDto> getLevelData() {
-//        return levelDataMap;
-//    }
+    public Map<Integer, LevelDataDto> getLevelData() {
+        return levelDataMap;
+    }
 }

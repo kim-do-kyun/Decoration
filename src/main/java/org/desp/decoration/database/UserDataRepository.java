@@ -39,6 +39,18 @@ public class UserDataRepository {
         }
     }
 
+    public void insertUserData(UserDataDto userData) {
+        Document document = new Document()
+                .append("user_id", userData.getUser_id())
+                .append("uuid", userData.getUuid())
+                .append("equippedDeco", userData.getEquippedDeco())
+                .append("unlockedDeco", userData.getUnlockedDeco())
+                .append("level", userData.getLevel());
+
+        userDataDB.insertOne(document);
+        System.out.println("Inserted user data");
+    }
+
     public Map<String, UserDataDto> getUserData() {
         return UserDataMap;
     }

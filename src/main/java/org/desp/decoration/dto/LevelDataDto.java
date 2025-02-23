@@ -8,6 +8,6 @@ import lombok.Setter;
 @Builder
 public class LevelDataDto {
     private int level;
-    private StatusDto status;
+    private StatsDto stats;
 }
 
