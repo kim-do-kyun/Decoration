@@ -31,6 +31,7 @@ public class ItemDataRepository {
                     .decoID(document.getString("decoID"))
                     .material(document.getString("material"))
                     .customModelData(document.getInteger("customModelData"))
+                    .cost(document.getInteger("cost"))
                     .build();
 
             itemDataMap.put(itemData.getDecoID(), itemData);

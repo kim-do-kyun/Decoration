@@ -10,4 +10,5 @@ public class ItemDataDto {
     private String decoID;
     private String material;
     private int customModelData;
+    private int cost;
 }

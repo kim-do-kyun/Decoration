@@ -19,7 +19,7 @@ public class LevelDataRepository {
         loadLevelData();
     }
 
-    public static synchronized LevelDataRepository getInstance() {
+    public static LevelDataRepository getInstance() {
         if (instance == null) {
             instance = new LevelDataRepository();
         }
@@ -41,6 +41,7 @@ public class LevelDataRepository {
 
             LevelDataDto levelData = LevelDataDto.builder()
                     .level(document.getInteger("level"))
+                    .cost(document.getInteger("cost"))
                     .stats(statsDto)
                     .build();
 

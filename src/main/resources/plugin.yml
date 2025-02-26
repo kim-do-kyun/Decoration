@@ -2,5 +2,12 @@ name: Decoration
 version: '1.0-SNAPSHOT'
 main: org.desp.decoration.Decoration
 api-version: '1.20'
+commands:
+  치장구매:
+    aliases: ["clwkdrnao"]
+  치장장착:
+    aliases: ["clwkdwkdckr"]
+  치장강화:
+    aliases: ["clwkdrkdghk"]
 
 depend: [MMOItems, MythicLib, MMOCore, MongoLibraryPlugin]
