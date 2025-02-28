@@ -101,6 +101,14 @@ public class DecorationListener implements Listener {
         }
     }
 
+    @EventHandler
+    public void onPlayerQuit(PlayerQuitEvent event) {
+        Player player = event.getPlayer();
+        UUID playerUUID = player.getUniqueId();
+
+        playerCache.remove(playerUUID.toString());
+    }
+
     public boolean isPlayerHasEnoughCoin(Player player, Integer cost) {
         int playerCoinAmount = 0;
         for (ItemStack item : player.getInventory().getContents()) {
@@ -108,7 +116,7 @@ public class DecorationListener implements Listener {
                 playerCoinAmount += item.getAmount();
             }
         }
-        return playerCoinAmount > cost;
+        return playerCoinAmount >= cost;
     }
 
     public void consumeDecoCoin(Player player, Integer cost) {

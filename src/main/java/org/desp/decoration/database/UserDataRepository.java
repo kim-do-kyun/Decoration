@@ -62,20 +62,6 @@ public class UserDataRepository {
 
     }
 
-    public void getUserData(Player player) {
-        Document document = (Document) userDataDB.find(Filters.eq("uuid", player.getUniqueId().toString()));
-
-    }
-
-//    public void loadUserData() {
-//        for (Document document : userDataDB.find()) {
-
-//
-//            UserDataMap.put(userData.getUuid(), userData);
-//        }
-//    }
-
-
     public void insertUserData(UserDataDto userData) {
         Document document = new Document()
                 .append("user_id", userData.getUser_id())
