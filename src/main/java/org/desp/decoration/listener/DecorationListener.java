@@ -27,6 +27,7 @@ import org.bukkit.event.player.PlayerQuitEvent;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.PlayerInventory;
 import org.bukkit.inventory.meta.ItemMeta;
+import org.bukkit.plugin.Plugin;
 import org.desp.decoration.Decoration;
 import org.desp.decoration.database.ItemDataRepository;
 import org.desp.decoration.database.LevelDataRepository;
@@ -106,7 +107,12 @@ public class DecorationListener implements Listener {
         Player player = event.getPlayer();
         UUID playerUUID = player.getUniqueId();
 
+        System.out.println("remove전 사이즈 : " + playerCache.size());
         playerCache.remove(playerUUID.toString());
+
+        Bukkit.getScheduler().runTaskLater((Plugin) this, () -> {
+            System.out.println("remove후 캐시 사이즈 :"+playerCache.size());
+        }, 20L);
     }
 
     public boolean isPlayerHasEnoughCoin(Player player, Integer cost) {
